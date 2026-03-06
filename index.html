@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shipment ETA Tool</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>Shipment ETA Tool</h1>
+      <p class="subtitle" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Upload Excel to import Container / Destination Port / ETA and Link</p>
+    </header>
+
+    <main class="app-main">
+      <section class="card">
+        <div class="card-header">
+          <h2>Upload Excel</h2>
+          <p class="subtitle">Excel must have columns: Container Number (If Ocean Shipment), Destination Port, Destination Arrival Original Planned Date (ETA), Destination Arrival Planned Date (ETA), Link</p>
+        </div>
+        <div class="form-row">
+          <label for="database">Database</label>
+          <select id="database">
+            <option value="KOL">KOL</option>
+            <option value="AHM">AHM</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="file">Excel file (.xlsx / .xls)</label>
+          <input type="file" id="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
+        </div>
+        <div class="form-actions">
+          <button type="button" id="btn-upload" class="btn-primary">Upload and import</button>
+          <button type="button" id="btn-refresh" class="btn-secondary">Refresh list</button>
+        </div>
+        <div id="statusMessage" class="status-message hidden"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Stored data (ShipmentETA)</h2>
+          <p class="subtitle">Rows from the database for the selected location</p>
+        </div>
+        <div id="tableWrap" class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Container Number</th>
+                <th>Destination Port</th>
+                <th>ETA Original</th>
+                <th>ETA Planned</th>
+                <th>Link</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty-state">No data yet. Upload an Excel file to import.</div>
+        <div id="loadingState" class="empty-state hidden">Loading…</div>
+      </section>
+    </main>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
