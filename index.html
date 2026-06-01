@@ -17,10 +17,10 @@
       <section class="card">
         <div class="card-header">
           <h2>Upload Excel</h2>
-          <p class="subtitle">Excel must have columns: Container Number (If Ocean Shipment), Destination Port, Destination Arrival Original Planned Date (ETA), Destination Arrival Planned Date (ETA), Link</p>
+          <p class="subtitle">Excel must have columns: Container Number (If Ocean Shipment), Destination Port, Destination Arrival Original Planned Date (ETA), Destination Arrival Planned Date (ETA), Gate in Actual Date, Origin Departure Actual Date, Link</p>
         </div>
         <div class="form-row">
-          <label for="database">Database</label>
+          <label for="database">Database (upload destination)</label>
           <select id="database">
             <option value="KOL">KOL</option>
             <option value="AHM">AHM</option>
@@ -40,15 +40,18 @@
       <section class="card">
         <div class="card-header">
           <h2>Stored data (ShipmentETA)</h2>
-          <p class="subtitle">Rows from the database for the selected location</p>
+          <p class="subtitle">Combined rows from KOL and AHM. Status is matched against FinishGoodsTransactionMain across both databases.</p>
         </div>
         <div id="tableWrap" class="table-wrap">
           <table class="data-table">
             <thead>
               <tr>
+                <th>Source DB</th>
                 <th>Id</th>
                 <th>Container Number</th>
                 <th>Destination Port</th>
+                <th>Gate in Actual</th>
+                <th>Origin Departure Actual</th>
                 <th>ETA Original</th>
                 <th>ETA Planned</th>
                 <th>Link</th>

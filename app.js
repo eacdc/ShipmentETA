@@ -82,9 +82,12 @@
       const rowClass = statusVal === 1 ? ' class="row-matched"' : '';
       return (
         '<tr' + rowClass + '>' +
+        '<td>' + escapeHtml(r.sourceDatabase || '—') + '</td>' +
         '<td>' + escapeHtml(String(r.id)) + '</td>' +
         '<td>' + escapeHtml(r.containerNumber || '—') + '</td>' +
         '<td>' + escapeHtml(r.destinationPort || '—') + '</td>' +
+        '<td>' + escapeHtml(r.gateInActualDate || '—') + '</td>' +
+        '<td>' + escapeHtml(r.originDepartureActualDate || '—') + '</td>' +
         '<td>' + escapeHtml(r.destinationArrivalOriginalPlannedDate || '—') + '</td>' +
         '<td>' + escapeHtml(r.destinationArrivalPlannedDate || '—') + '</td>' +
         '<td class="col-link">' + linkCell + '</td>' +
@@ -108,9 +111,10 @@
   }
 
   function loadList() {
-    const db = (el.database && el.database.value) || 'KOL';
+    // The list endpoint always returns combined data from BOTH KOL and AHM,
+    // so no `database` filter is sent.
     setLoading(true);
-    apiRequest('/shipment-eta/list?database=' + encodeURIComponent(db))
+    apiRequest('/shipment-eta/list')
       .then(renderList)
       .catch(function (err) {
         setLoading(false);
@@ -153,7 +157,7 @@
     loadList();
   });
 
-  el.database.addEventListener('change', loadList);
+  // Database selector now only chooses the upload destination; the table is always combined.
 
   loadList();
 })();
